@@ -539,6 +539,7 @@ class Youtube
         
             $uri = "/{$this->_uris['VIDEO_URI']}/{$videoId}/comments";
             $url = self::URI_BASE.substr($uri, 1);
+            $comment = htmlspecialchars($comment);
             
             $xml = "<?xml version='1.0' encoding='UTF-8'?><entry xmlns='http://www.w3.org/2005/Atom' xmlns:yt='http://gdata.youtube.com/schemas/2007'>";
             if($commentId !== false)$xml .= "<link rel='http://gdata.youtube.com/schemas/2007#in-reply-to' type='application/atom+xml' href='{$url}/{$commentId}'/>";

@@ -76,8 +76,11 @@ class Example extends CI_Controller
 		$params['oauth']['access_token'] = array('oauth_token'=>urlencode($this->session->userdata('oauth_token')),
 												 'oauth_token_secret'=>urlencode($this->session->userdata('oauth_token_secret')));
 		$this->load->library('youtube', $params);
+
+        $title       = htmlspecialchars('Title wih & char');        // Ampersand('&') need to be converted to '&amp;' for youtube to accept it.
+        $description = htmlspecialchars('Video Description .');     // htmlspecialchars() does the job
 		
-		$metadata = '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yt="http://gdata.youtube.com/schemas/2007"><media:group><media:title type="plain">Test Direct Upload</media:title><media:description type="plain">Test Direct Uploading.</media:description><media:category scheme="http://gdata.youtube.com/schemas/2007/categories.cat">People</media:category><media:keywords>test</media:keywords></media:group></entry>';
+		$metadata = '<entry xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:yt="http://gdata.youtube.com/schemas/2007"><media:group><media:title type="plain">'.$title.'</media:title><media:description type="plain"></media:description>'.$description.'<media:category scheme="http://gdata.youtube.com/schemas/2007/categories.cat">People</media:category><media:keywords>test</media:keywords></media:group></entry>';
 		echo $this->youtube->directUpload($videoPath, $videoType, $metadata);
 	}
 }
